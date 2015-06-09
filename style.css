@@ -8,6 +8,9 @@
 .box {
   border: 2px dashed darkgrey;
   box-sizing: border-box;
+  float: left;
+  font-size: 90px;
+  font-weight: bold;
   height: 100px;
   width: 100px;
 }
