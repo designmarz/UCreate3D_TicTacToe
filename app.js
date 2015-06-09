@@ -46,8 +46,14 @@ var boxClickHandler = function (event) {
   console.log(id);
   console.log(current_player)
 // remove later //
-  box.classList.add(current_player);
-	current_player = togglePlayer(current_player);
+	if (game_board[id] == EMPTY) {
+		
+		box.classList.add(current_player);
+		game_board[id] = current_player;
+		current_player = togglePlayer(current_player);
+		console.log(game_board);
+
+	}
 };
 
 
