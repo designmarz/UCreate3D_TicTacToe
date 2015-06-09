@@ -28,22 +28,27 @@ var getBox = function (num) {
 	return document.getElementById(num);
 }
 
-var boxClickHandler = function (event) {
+var togglePlayer = function (player) {
+  if (player == PLAYER_X) {
+    return PLAYER_O;
+  } else {
+    return PLAYER_X;
+  }
+};
 
+
+var boxClickHandler = function (event) {
   // Grab the box that was clicked.
   var box = event.target;
   var id = parseInt(event.target.getAttribute("id"));
+// remove later //
   console.log(box);
   console.log(id);
   console.log(current_player)
+// remove later //
   box.classList.add(current_player);
-  	if (current_player == PLAYER_X) { 
-  		current_player = PLAYER_O; 
-  	} else if (current_player == PLAYER_O) {
-  		current_player = PLAYER_X;
-  	}
-
-}
+	current_player = togglePlayer(current_player);
+};
 
 
 window.addEventListener("load", function () {
