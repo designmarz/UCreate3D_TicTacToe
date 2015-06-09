@@ -12,12 +12,12 @@ var WIN_COMBOS = [
 ];
 
 // Start blank game board
-var gameBoard = [EMPTY, EMPTY, EMPTY,
+var game_board = [EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY];
 
 // Sets X as Starting player
-var currentPlayer = PLAYER_X;
+var current_player = PLAYER_X;
 
 
 var getBoxes = function () {
@@ -35,8 +35,14 @@ var boxClickHandler = function (event) {
   var id = parseInt(event.target.getAttribute("id"));
   console.log(box);
   console.log(id);
-  console.log(currentPlayer)
-  box.classList.add(currentPlayer);
+  console.log(current_player)
+  box.classList.add(current_player);
+  	if (current_player == PLAYER_X) { 
+  		current_player = PLAYER_O; 
+  	} else if (current_player == PLAYER_O) {
+  		current_player = PLAYER_X;
+  	}
+
 }
 
 

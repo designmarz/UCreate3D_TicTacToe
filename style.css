@@ -16,8 +16,8 @@
 }
 
 .box.X {
-  color: red;
+  background-color: red;
 }
 .box.O {
-  color: blue;
+  background-color: blue;
 }
