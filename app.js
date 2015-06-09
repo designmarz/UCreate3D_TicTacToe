@@ -16,6 +16,17 @@ var game_board = [EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY];
 
+var fresh_game = game_board;
+
+var newGame = function () {
+	var boxes = getBoxes();
+  		for (var i = 0; i < boxes.length; i++) {
+    	boxes[i].className = "box";
+  		};
+  	current_player = PLAYER_X;
+  	game_board = fresh_game;
+}
+
 // Sets X as Starting player
 var current_player = PLAYER_X;
 
@@ -47,9 +58,7 @@ var isWin = function (board) {
     var combo = WIN_COMBOS[i]; // combo to check against
     var one = board[combo[0]]; // first posistion to check against
     if (one != EMPTY && one == board[combo[1]] && one == board[combo[2]]) {
-      alert("Player " + one + " Wins!");
       return true;
-
     }
   }
   return false;
@@ -71,9 +80,17 @@ var boxClickHandler = function (event) {
 		box.classList.add(current_player);
 
 		game_board = move(game_board, current_player, id);
-		// game_board[id] = current_player;
-		current_player = togglePlayer(current_player);
-		isWin(game_board);
+		
+		if (isWin(game_board)){
+			if (confirm("Player " + current_player + " Wins! Play a new game?")){
+			newGame();
+			}
+		} else {
+			current_player = togglePlayer(current_player);
+		};
+		
+		// current_player = togglePlayer(current_player);
+		
 		console.log(game_board); // remove later //
 
 	}
