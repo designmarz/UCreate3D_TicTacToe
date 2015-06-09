@@ -26,7 +26,7 @@ var getBoxes = function () {
 
 var getBox = function (num) {
 	return document.getElementById(num);
-}
+};
 
 var togglePlayer = function (player) {
   if (player == PLAYER_X) {
@@ -35,6 +35,27 @@ var togglePlayer = function (player) {
     return PLAYER_X;
   }
 };
+
+var move = function (board, player, position) {
+  var new_board = board.concat();
+  new_board[position] = player;
+  return new_board;
+};
+
+var isWin = function (board) {
+  for (var i = 0; i < WIN_COMBOS.length; i++) {
+    var combo = WIN_COMBOS[i]; // combo to check against
+    var one = board[combo[0]]; // first posistion to check against
+    if (one != EMPTY && one == board[combo[1]] && one == board[combo[2]]) {
+      alert("Player " + one + " Wins!");
+      return true;
+
+    }
+  }
+  return false;
+};
+
+
 
 
 var boxClickHandler = function (event) {
@@ -47,11 +68,13 @@ var boxClickHandler = function (event) {
   console.log(current_player)
 // remove later //
 	if (game_board[id] == EMPTY) {
-		
 		box.classList.add(current_player);
-		game_board[id] = current_player;
+
+		game_board = move(game_board, current_player, id);
+		// game_board[id] = current_player;
 		current_player = togglePlayer(current_player);
-		console.log(game_board);
+		isWin(game_board);
+		console.log(game_board); // remove later //
 
 	}
 };
@@ -62,7 +85,7 @@ window.addEventListener("load", function () {
   for (var i = 0; i < boxes.length; i++) {
     boxes[i].onclick = boxClickHandler;
   }
-  console.log(boxes);
+  console.log(boxes); // remove later //
 });
 
 
