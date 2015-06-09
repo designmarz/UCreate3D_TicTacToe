@@ -17,7 +17,7 @@ var gameBoard = [EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY];
 
 // Sets X as Starting player
-var current_player = PLAYER_X;
+var currentPlayer = PLAYER_X;
 
 
 var getBoxes = function () {
@@ -27,3 +27,25 @@ var getBoxes = function () {
 var getBox = function (num) {
 	return document.getElementById(num);
 }
+
+var boxClickHandler = function (event) {
+
+  // Grab the box that was clicked.
+  var box = event.target;
+  var id = parseInt(event.target.getAttribute("id"));
+  console.log(box);
+  console.log(id);
+  console.log(currentPlayer)
+  box.classList.add(currentPlayer);
+}
+
+
+window.addEventListener("load", function () {
+  var boxes = getBoxes();
+  for (var i = 0; i < boxes.length; i++) {
+    boxes[i].onclick = boxClickHandler;
+  }
+  console.log(boxes);
+});
+
+
