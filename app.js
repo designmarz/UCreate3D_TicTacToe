@@ -20,11 +20,13 @@ var fresh_game = game_board;
 
 var newGame = function () {
 	var boxes = getBoxes();
+  		// reset game styles
   		for (var i = 0; i < boxes.length; i++) {
     	boxes[i].className = "box";
   		};
-  	current_player = PLAYER_X;
-  	game_board = fresh_game;
+  		// refresh game state
+  		current_player = PLAYER_X;
+  		game_board = fresh_game;
 }
 
 // Sets X as Starting player
@@ -65,6 +67,16 @@ var isWin = function (board) {
 };
 
 
+var stupid_computer_move = function () {
+	var random_pc_move = Math.round(Math.random() * 10);;
+		if (game_board[random_pc_move] == EMPTY) {
+			getBox(random_pc_move).click();
+			console.log(random_pc_move);
+	} else if (game_board[random_pc_move] !== EMPTY){
+		console.log(random_pc_move);
+		stupid_computer_move();
+	}
+};
 
 
 var boxClickHandler = function (event) {
@@ -83,10 +95,12 @@ var boxClickHandler = function (event) {
 		
 		if (isWin(game_board)){
 			if (confirm("Player " + current_player + " Wins! Play a new game?")){
-			newGame();
-			}
+			newGame();}
 		} else {
 			current_player = togglePlayer(current_player);
+			if (current_player == PLAYER_O) {
+				stupid_computer_move();
+			}
 		};
 		
 		// current_player = togglePlayer(current_player);
