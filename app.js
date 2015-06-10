@@ -16,7 +16,10 @@ var game_board = [EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY,
 				 EMPTY, EMPTY, EMPTY];
 
+// State to refresh to
 var fresh_game = game_board;
+
+var computer_move_counter = computer_move_counter || 0;
 
 var newGame = function () {
 	var boxes = getBoxes();
@@ -66,15 +69,23 @@ var isWin = function (board) {
   return false;
 };
 
-
+// Stupid "AI" based of Math.random - recursive will call it self until it can move
+// Will call forever if game is a Tie at the moment - Need to add some break
 var stupid_computer_move = function () {
+	computer_move_counter = computer_move_counter || 0;
+
 	var random_pc_move = Math.round(Math.random() * 10);;
 		if (game_board[random_pc_move] == EMPTY) {
-			getBox(random_pc_move).click();
-			console.log(random_pc_move);
-	} else if (game_board[random_pc_move] !== EMPTY){
-		console.log(random_pc_move);
-		stupid_computer_move();
+			setTimeout(function () {
+          		getBox(random_pc_move).click();
+          		console.log("Computer Moved!");
+        	}, 250);
+        	
+		} else if (game_board[random_pc_move] !== EMPTY  && computer_move_counter < 1000) {
+			console.log("Computer Thinking!");
+			computer_move_counter +=1;
+			console.log("The AI has tried " + computer_move_counter + " times to move.")
+			stupid_computer_move();
 	}
 };
 
@@ -115,7 +126,7 @@ window.addEventListener("load", function () {
   var boxes = getBoxes();
   for (var i = 0; i < boxes.length; i++) {
     boxes[i].onclick = boxClickHandler;
-  }
+  };
   console.log(boxes); // remove later //
 });
 
