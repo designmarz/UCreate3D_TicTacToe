@@ -12,14 +12,14 @@ var WIN_COMBOS = [
   ];
 
 // Start blank game board
-var game_board = [EMPTY, EMPTY, EMPTY,
-EMPTY, EMPTY, EMPTY,
-EMPTY, EMPTY, EMPTY];
+var gameBoard = [EMPTY, EMPTY, EMPTY,
+				 EMPTY, EMPTY, EMPTY,
+				 EMPTY, EMPTY, EMPTY];
 
 // State to refresh to
-var fresh_game = game_board;
+var freshGame = gameBoard;
 
-var computer_move_counter = computer_move_counter || 0;
+var computerMoveCounter = computerMoveCounter || 0;
 
 var newGame = function () {
 	var boxes = getBoxes();
@@ -28,12 +28,12 @@ var newGame = function () {
   			boxes[i].className = "box";
   		};
   		// refresh game state
-  		current_player = PLAYER_X;
-  		game_board = fresh_game;
+  		currentPlayer = PLAYER_X;
+  		gameBoard = freshGame;
   	};
 
 // Sets X as Starting player
-var current_player = PLAYER_X;
+var currentPlayer = PLAYER_X;
 
 
 var getBoxes = function () {
@@ -72,7 +72,7 @@ var isWin = function (board) {
 return false;
 };
 
-var is_tie = function (board) {
+var isTie = function (board) {
 	for (var i = 0; i < board.length; i++) {
 		if (board[i] == EMPTY) {
 			return false
@@ -85,20 +85,17 @@ var is_tie = function (board) {
 // Stupid "AI" based of Math.random - recursive will call it self until it can move
 // Will call up to 250 times and then stop
 var stupid_computer_move = function () {
-	var computer_move_counter = computer_move_counter || 0;
+	var computerMoveCounter = computerMoveCounter || 0;
 
 	var random_pc_move = Math.round(Math.random() * 10);;
-	if (game_board[random_pc_move] == EMPTY) {
-		var computer_move_counter = 0;
+	if (gameBoard[random_pc_move] == EMPTY) {
+		var computerMoveCounter = 0;
 		setTimeout(function () {
 			getBox(random_pc_move).click();
-			console.log("Computer Moved!");
-		}, 250);
+			}, 250);
 
-	} else if (game_board[random_pc_move] !== EMPTY  && computer_move_counter < 250) {
-		console.log("Computer Thinking!");
-		computer_move_counter +=1;
-		console.log("The AI has tried " + computer_move_counter + " times to move.")
+	} else if (gameBoard[random_pc_move] !== EMPTY  && computerMoveCounter < 250) {
+		computerMoveCounter +=1;
 		stupid_computer_move();
 	} else {
 		newGame();
@@ -110,41 +107,34 @@ var boxClickHandler = function (event) {
   // Grab the box that was clicked.
   var box = event.target;
   var id = parseInt(event.target.getAttribute("id"));
-// remove later //
-console.log("Box: " + box + " ID: " + id + " Current Player: " + current_player);
-// remove later //
-if (game_board[id] == EMPTY) {
-	box.classList.add(current_player);
-	game_board = move(game_board, current_player, id);
+	if (gameBoard[id] == EMPTY) {
+		box.classList.add(currentPlayer);
+		gameBoard = move(gameBoard, currentPlayer, id);
 
-		if (isWin(game_board)){ // if thsiis return true show winner and ask for a new game
-			if (confirm("Player " + current_player + " Wins! Play a new game?")){ 
-				newGame(); 
-			}
-		} else // end of is_win check
-		if (is_tie(game_board)){ 
-			alert("It's a tie game!");
-			newGame();
-			console.log("It's a tie! --------");
-		} else // end of is_tie check
+				if (isWin(gameBoard)){ // if thsiis return true show winner and ask for a new game
+					if (confirm("Player " + currentPlayer + " Wins! Play a new game?")){ 
+						newGame(); 
+					}
+				} else // end of is_win check
+				if (isTie(gameBoard)){ 
+					alert("It's a tie game!");
+					newGame();
+				} else // end of isTie check
 
-		current_player = togglePlayer(current_player);
-		
-		if (current_player == PLAYER_O) {
-			stupid_computer_move();
+				currentPlayer = togglePlayer(currentPlayer);
+				
+				if (currentPlayer == PLAYER_O) {
+					stupid_computer_move();
+				};
+			};
 		};
-		
-		console.log(game_board); // remove later //
-		};
-	};
 
 
 	window.addEventListener("load", function () {
 		var boxes = getBoxes();
 		for (var i = 0; i < boxes.length; i++) {
 			boxes[i].onclick = boxClickHandler;
-		};
-  console.log(boxes); // remove later //
+	};
 });
 
 
