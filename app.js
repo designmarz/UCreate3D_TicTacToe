@@ -52,11 +52,14 @@ var togglePlayer = function (player) {
   }
 };
 
+// move function that takes the current game board, the payer moving and the posistion they are moving to
+// and returns an updated board
 var move = function (board, player, position) {
   var new_board = board.concat();
   new_board[position] = player;
   return new_board;
 };
+
 
 var isWin = function (board) {
   for (var i = 0; i < WIN_COMBOS.length; i++) {
@@ -70,12 +73,13 @@ var isWin = function (board) {
 };
 
 // Stupid "AI" based of Math.random - recursive will call it self until it can move
-// Will call forever if game is a Tie at the moment - Need to add some break
+// Will call up to 1000 times and then stop
 var stupid_computer_move = function () {
 	computer_move_counter = computer_move_counter || 0;
 
 	var random_pc_move = Math.round(Math.random() * 10);;
 		if (game_board[random_pc_move] == EMPTY) {
+			var computer_move_counter = 0;
 			setTimeout(function () {
           		getBox(random_pc_move).click();
           		console.log("Computer Moved!");
