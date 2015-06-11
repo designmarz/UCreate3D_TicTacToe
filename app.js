@@ -52,7 +52,7 @@ var togglePlayer = function (player) {
 	}
 };
 
-// move function that takes the current game board, the payer moving and the posistion they are moving to
+// move function that takes the current game board, the player moving and the position they are moving to
 // and returns an updated board
 var move = function (board, player, position) {
 	var new_board = board.concat();
@@ -75,19 +75,19 @@ return false;
 var isTie = function (board) {
 	for (var i = 0; i < board.length; i++) {
 		if (board[i] == EMPTY) {
-			return false
+			return false;
 		}
-	};
-		return true	
+	}
+		return true;	
 };
 
 
-// Stupid "AI" based of Math.random - recursive will call it self until it can move
+// Stupid "AI" based of Math.random - recursive will call itself until it can move
 // Will call up to 250 times and then stop
 var stupid_computer_move = function () {
 	var computerMoveCounter = computerMoveCounter || 0;
 
-	var random_pc_move = Math.round(Math.random() * 10);;
+	var random_pc_move = Math.round(Math.random() * 10);
 	if (gameBoard[random_pc_move] == EMPTY) {
 		var computerMoveCounter = 0;
 		setTimeout(function () {
@@ -178,7 +178,7 @@ var boxClickHandler = function (event) {
 		box.classList.add(currentPlayer);
 		gameBoard = move(gameBoard, currentPlayer, id);
 
-				if (isWin(gameBoard)){ // if thsiis return true show winner and ask for a new game
+				if (isWin(gameBoard)){ // if this returns true show winner and ask for a new game
 					if (confirm("Player " + currentPlayer + " Wins! Play a new game?")){ 
 						newGame(); 
 					}
@@ -194,8 +194,8 @@ var boxClickHandler = function (event) {
 					// stupid_computer_move();
 					medPcMove();
 					// hardPcMove();
-				};
-			};
+				}
+			}
 		};
 
 
@@ -203,7 +203,7 @@ var boxClickHandler = function (event) {
 		var boxes = getBoxes();
 		for (var i = 0; i < boxes.length; i++) {
 			boxes[i].onclick = boxClickHandler;
-	};
+	}
 });
 
 
