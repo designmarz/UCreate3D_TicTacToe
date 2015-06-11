@@ -102,9 +102,76 @@ var stupid_computer_move = function () {
 	}
 };
 
+var medPcMove = function () {
+	if (currentPlayer == PLAYER_O) {
+	var openMove = takenSpaces(gameBoard, EMPTY);
+		for (var i = 0; i < openMove.length; i++) {
+			var gridNum = parseInt(openMove[i]);
+			if (gameBoard[4] == EMPTY) {
+				setTimeout(function () {
+					getBox(4).click();
+					}, 250);
+				console.log("box 4");
+				return openMove
+			} else if (gameBoard[2] == EMPTY) {
+				setTimeout(function () {
+						getBox(2).click();
+						}, 250);
+				console.log("Box 2");
+				return openMove
+			} else if (gameBoard[0] == EMPTY){
+				setTimeout(function () {
+						getBox(0).click();
+						}, 250);
+				console.log("Box 6");
+				return openMove
+			} else if (gameBoard[8] == EMPTY){
+				setTimeout(function () {
+						getBox(8).click();
+						}, 250);
+				console.log("Box 8");
+				return openMove
+			} else if (gameBoard[6] == EMPTY){
+				setTimeout(function () {
+						getBox(6).click();
+						}, 250);
+				console.log("Box " + i);
+				return openMove				
+		 	} else if (gameBoard[(i+1)] == EMPTY){
+				setTimeout(function () {
+						getBox(i+1).click();
+						}, 250);
+				console.log("Box " + i);
+				return openMove				
+				}	else 
+				setTimeout(function () {
+				getBox(gridNum).click();
+						}, 250);
+				console.log("gridNum " + gridNum);
+				return openMove				
+			}	
+		}
+	}
+
+
+var hardPcMove = function () {
+	// body...
+};
+
+// Returns an array of 
+var takenSpaces = function (board, filter) {
+	var openBoxes = []
+	for (var i = 0; i < board.length; i++) {
+		if (board[i] == filter) {
+			openBoxes.push(getBox(i).getAttribute("id"));
+		};
+	};
+	return openBoxes;
+};
 
 var boxClickHandler = function (event) {
   // Grab the box that was clicked.
+  // add if check on current player so you can only click on your turn
   var box = event.target;
   var id = parseInt(event.target.getAttribute("id"));
 	if (gameBoard[id] == EMPTY) {
@@ -124,7 +191,9 @@ var boxClickHandler = function (event) {
 				currentPlayer = togglePlayer(currentPlayer);
 				
 				if (currentPlayer == PLAYER_O) {
-					stupid_computer_move();
+					// stupid_computer_move();
+					medPcMove();
+					// hardPcMove();
 				};
 			};
 		};
