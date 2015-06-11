@@ -5,6 +5,13 @@
   width: 300px;
 }
 
+button#newGame {
+  margin-top: 10px;
+  font-size: 14pt;
+  padding: 14px;
+}
+
+
 .box {
   border: 2px dashed darkgrey;
   box-sizing: border-box;
