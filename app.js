@@ -191,8 +191,8 @@ var boxClickHandler = function (event) {
 				currentPlayer = togglePlayer(currentPlayer);
 				
 				if (currentPlayer == PLAYER_O) {
-					// stupid_computer_move();
-					medPcMove();
+					stupid_computer_move();
+					// medPcMove();
 					// hardPcMove();
 				}
 			}
